@@ -13,8 +13,10 @@ maxY = 12.0
 offsetX = 0.3
 offsetXX = 0.2
 offsetY = 0.15
-maxResultA = 15
-maxResultB = 2
+minResultA = 0
+maxResultA = 14
+minResultB = 1
+maxResultB = 3
 rx = [[0 for col in range(100)] for row in range(100)]
 ry = [[0 for col in range(100)] for row in range(100)]
 
@@ -26,11 +28,12 @@ for x in range(0,maxX):
 		q = scribus.createText((x*((pageX*0.9)/maxX))+offsetX, (y*(pageY/maxY))+offsetY, (pageX*0.9)/maxX, pageY/maxY)
 		scribus.setFont('Arial Regular',q)
 		scribus.setFontSize(48, q)
-#		scribus.setTextAlignment(scribus.ALIGN_CENTERED, q)
-#		rx[x][y] = random.randint(0, maxResult)
-#		ry[x][y] = random.randint(0, (maxResult-rx[x][y]))
-		rx[x][y] = random.randint(0, maxResultA)
-		ry[x][y] = random.randint(0, maxResultB)
+		if random.randint(0, 1) == 0:
+			rx[x][y] = random.randint(minResultB, maxResultB) 
+			ry[x][y] = random.randint(minResultA, maxResultA)
+		else:
+			rx[x][y] = random.randint(minResultA, maxResultA)
+			ry[x][y] = random.randint(minResultB, maxResultB)
 		rxx = rx[x][y]
 		ryy = ry[x][y]
 		scribus.insertText('%(rxx)d + %(ryy)d =__' % locals(), 0, q)
